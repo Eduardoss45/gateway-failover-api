@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: betalent_mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: betalent
+      MYSQL_USER: betalent
+      MYSQL_PASSWORD: betalent
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
