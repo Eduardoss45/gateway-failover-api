@@ -34,5 +34,10 @@ export default await Env.create(new URL('../', import.meta.url), {
   DB_PORT: Env.schema.number(),
   DB_USER: Env.schema.string(),
   DB_PASSWORD: Env.schema.string.optional(),
-  DB_DATABASE: Env.schema.string()
+  DB_DATABASE: Env.schema.string(),
+
+  // Gateways
+  GW1_BASE_URL: Env.schema.string({ format: 'url', tld: false }),
+  GW1_EMAIL: Env.schema.string(),
+  GW1_TOKEN: Env.schema.string(),
 })

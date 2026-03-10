@@ -2,14 +2,22 @@ import Product from '#models/product'
 import Client from '#models/client'
 import Transaction from '#models/transaction'
 import PaymentService from './payment_service.ts'
+import db from '@adonisjs/lucid/services/db'
 
 export default class PurchaseService {
   async execute(payload: any) {
     const { name, email, cardNumber, cvv, products } = payload
 
     const productIds = products.map((p: any) => p.product_id)
+    const uniqueProductIds = Array.from(new Set(productIds))
 
-    const dbProducts = await Product.query().whereIn('id', productIds)
+    const dbProducts = await Product.query().whereIn('id', uniqueProductIds)
+
+    if (dbProducts.length !== uniqueProductIds.length) {
+      const foundIds = new Set(dbProducts.map((p) => p.id))
+      const missingIds = uniqueProductIds.filter((id) => !foundIds.has(id))
+      throw new Error(`Products not found: ${missingIds.join(', ')}`)
+    }
 
     let total = 0
 
@@ -23,8 +31,6 @@ export default class PurchaseService {
       total += product.amount * item.quantity
     }
 
-    const client = await Client.firstOrCreate({ email }, { name })
-
     const paymentService = new PaymentService()
 
     const payment = await paymentService.charge({
@@ -35,26 +41,33 @@ export default class PurchaseService {
       cvv,
     })
 
-    const transaction = await Transaction.create({
-      clientId: client.id,
-      gatewayId: payment.gatewayId!,
-      externalId: payment.externalId,
-      status: payment.success ? 'success' : 'failed',
-      amount: total,
-      cardLastNumbers: cardNumber.slice(-4),
-    })
+    return db.transaction(async (trx) => {
+      const client = await Client.query({ client: trx }).firstOrCreate({ email }, { name })
 
-    // ! Não vou usar esse model por estar usando pivot, temos que resolver isso
-    const pivotData: Record<number, { quantity: number }> = {}
+      const transaction = await Transaction.create(
+        {
+          clientId: client.id,
+          gatewayId: payment.gatewayId!,
+          externalId: payment.externalId,
+          status: payment.success ? 'paid' : 'failed',
+          amount: total,
+          cardLastNumbers: cardNumber.slice(-4),
+        },
+        { client: trx }
+      )
 
-    for (const item of products) {
-      pivotData[item.product_id] = {
-        quantity: item.quantity,
+      const pivotData: Record<number, { quantity: number }> = {}
+
+      for (const item of products) {
+        pivotData[item.product_id] = {
+          quantity: item.quantity,
+        }
       }
-    }
 
-    await transaction.related('products').attach(pivotData)
+      transaction.useTransaction(trx)
+      await transaction.related('products').attach(pivotData)
 
-    return transaction
+      return transaction
+    })
   }
 }

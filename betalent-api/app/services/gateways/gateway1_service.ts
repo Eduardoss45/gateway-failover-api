@@ -1,15 +1,17 @@
 import axios from 'axios'
 import { GatewayInterface, ChargePayload, GatewayResponse } from './gateway_interface.ts'
+import env from '#start/env'
 
 export default class Gateway1Service implements GatewayInterface {
-  private baseUrl = 'http://localhost:3001'
+  private baseUrl = env.get('GW1_BASE_URL')
   private token: string | null = null
 
   private async authenticate() {
     if (this.token) return
 
     const response = await axios.post(`${this.baseUrl}/login`, {
-      email: 'dev@betalent.tech',
+      email: env.get('GW1_EMAIL'),
+      token: env.get('GW1_TOKEN'),
     })
 
     this.token = response.data.token

@@ -7,52 +7,232 @@ import type { InferInput, SimpleError } from '@vinejs/vine/types'
 export type ParamValue = string | number | bigint | boolean
 
 export interface Registry {
-  'auth.new_account.store': {
+  'purchases.store': {
     methods: ["POST"]
-    pattern: '/api/v1/auth/signup'
-    types: {
-      body: ExtractBody<InferInput<(typeof import('#validators/user_validator').signupValidator)>>
-      paramsTuple: []
-      params: {}
-      query: ExtractQuery<InferInput<(typeof import('#validators/user_validator').signupValidator)>>
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/new_account_controller').default['store']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/new_account_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
-    }
-  }
-  'auth.access_token.store': {
-    methods: ["POST"]
-    pattern: '/api/v1/auth/login'
-    types: {
-      body: ExtractBody<InferInput<(typeof import('#validators/user_validator').loginValidator)>>
-      paramsTuple: []
-      params: {}
-      query: ExtractQuery<InferInput<(typeof import('#validators/user_validator').loginValidator)>>
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/access_token_controller').default['store']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/access_token_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
-    }
-  }
-  'auth.access_token.destroy': {
-    methods: ["POST"]
-    pattern: '/api/v1/auth/logout'
+    pattern: '/purchase'
     types: {
       body: {}
       paramsTuple: []
       params: {}
       query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/access_token_controller').default['destroy']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/access_token_controller').default['destroy']>>>
+      response: unknown
+      errorResponse: unknown
     }
   }
-  'profile.profile.show': {
+  'auth.login': {
+    methods: ["POST"]
+    pattern: '/login'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'users.store': {
+    methods: ["POST"]
+    pattern: '/users'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'users.index': {
     methods: ["GET","HEAD"]
-    pattern: '/api/v1/account/profile'
+    pattern: '/users'
     types: {
       body: {}
       paramsTuple: []
       params: {}
       query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['show']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['show']>>>
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'users.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/users/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'users.update': {
+    methods: ["PUT"]
+    pattern: '/users/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'users.destroy': {
+    methods: ["DELETE"]
+    pattern: '/users/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'products.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/products'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'products.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/products/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'products.store': {
+    methods: ["POST"]
+    pattern: '/products'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'products.update': {
+    methods: ["PUT"]
+    pattern: '/products/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'products.destroy': {
+    methods: ["DELETE"]
+    pattern: '/products/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'gateways.update_status': {
+    methods: ["PATCH"]
+    pattern: '/gateways/:id/status'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'gateways.update_priority': {
+    methods: ["PATCH"]
+    pattern: '/gateways/:id/priority'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'clients.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/clients'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'clients.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/clients/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'transactions.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/transactions'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'transactions.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/transactions/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'transactions.refund': {
+    methods: ["POST"]
+    pattern: '/transactions/:id/refund'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: unknown
+      errorResponse: unknown
     }
   }
 }
