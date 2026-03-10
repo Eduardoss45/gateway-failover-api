@@ -8,8 +8,10 @@ export default class PurchaseService {
   async execute(payload: any) {
     const { name, email, cardNumber, cvv, products } = payload
 
-    const productIds = products.map((p: any) => p.product_id)
-    const uniqueProductIds = Array.from(new Set(productIds))
+    const productIds = products
+      .map((p: any) => Number(p.product_id))
+      .filter((id: number) => Number.isFinite(id))
+    const uniqueProductIds = Array.from(new Set<number>(productIds))
 
     const dbProducts = await Product.query().whereIn('id', uniqueProductIds)
 
@@ -28,7 +30,7 @@ export default class PurchaseService {
         throw new Error(`Product ${item.product_id} not found`)
       }
 
-      total += product.amount * item.quantity
+      total += product.amount * Number(item.quantity)
     }
 
     const paymentService = new PaymentService()

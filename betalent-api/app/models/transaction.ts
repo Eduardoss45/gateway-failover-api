@@ -10,13 +10,13 @@ export default class Transaction extends TransactionSchema {
   declare id: number
 
   @column()
-  declare clientId: number
+  declare clientId: number | null
 
   @column()
-  declare gatewayId: number
+  declare gatewayId: number | null
 
   @column()
-  declare externalId: string
+  declare externalId: string | null
 
   @column()
   declare status: string
@@ -25,7 +25,7 @@ export default class Transaction extends TransactionSchema {
   declare amount: number
 
   @column()
-  declare cardLastNumbers: string
+  declare cardLastNumbers: string | null
 
   @belongsTo(() => Client)
   declare client: BelongsTo<typeof Client>

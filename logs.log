@@ -1,0 +1,490 @@
+PS C:\dev\backend-III> docker compose build
+time="2026-03-10T12:15:21-03:00" level=warning msg="C:\\dev\\backend-III\\docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+#1 [internal] load local bake definitions
+#1 reading from stdin 517B 0.1s done
+#1 DONE 0.1s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 326B 0.0s done
+#2 DONE 0.1s
+
+#3 [internal] load metadata for docker.io/library/node:20-alpine
+#3 DONE 1.0s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 0.0s
+#4 transferring context: 2B 0.0s done
+#4 DONE 0.2s
+
+#5 [1/9] FROM docker.io/library/node:20-alpine@sha256:b88333c42c23fbd91596ebd7fd10de239cedab9617de04142dde7315e3bc0afa
+#5 resolve docker.io/library/node:20-alpine@sha256:b88333c42c23fbd91596ebd7fd10de239cedab9617de04142dde7315e3bc0afa 0.1s done
+#5 sha256:9d10d4687fae6e13c052431ea3221ccda835c3262df3564310345ffe173146d9 445B / 445B 0.4s done
+#5 sha256:7ad115895a6aadccf7f98a05c33873c04df2933ba557c5bcdbedd3de612803da 1.26MB / 1.26MB 1.2s done
+#5 sha256:589002ba0eaed121a1dbf42f6648f29e5be55d5c8a6ee0f8eaa0285cc21ac153 3.86MB / 3.86MB 2.9s
+#5 extracting sha256:589002ba0eaed121a1dbf42f6648f29e5be55d5c8a6ee0f8eaa0285cc21ac153 0.7s done
+#5 sha256:ed2fdcee5269a06b0b8b77c69867176443364a72a9626e9aa2e66ab1ebda35a7 43.22MB / 43.22MB 17.3s done
+#5 extracting sha256:ed2fdcee5269a06b0b8b77c69867176443364a72a9626e9aa2e66ab1ebda35a7 4.8s done
+#5 extracting sha256:7ad115895a6aadccf7f98a05c33873c04df2933ba557c5bcdbedd3de612803da 0.2s done
+#5 extracting sha256:9d10d4687fae6e13c052431ea3221ccda835c3262df3564310345ffe173146d9 0.1s done
+#5 ...
+
+#6 [2/9] WORKDIR /app
+#6 DONE 20.3s
+
+#7 [internal] load build context
+#7 transferring context: 18.59MB 5.0s
+#7 transferring context: 63.73MB 10.1s
+#7 transferring context: 104.71MB 15.2s
+#7 transferring context: 140.90MB 20.4s
+#7 transferring context: 159.40MB 23.4s done
+#7 DONE 23.6s
+
+#8 [3/9] COPY package*.json ./
+#8 DONE 4.9s
+
+#9 [4/9] RUN npm ci
+#9 4.631 npm warn EBADENGINE Unsupported engine {
+#9 4.631 npm warn EBADENGINE   package: '@adonisjs/ace@14.0.1',
+#9 4.631 npm warn EBADENGINE   required: { node: '>=24.0.0' },
+#9 4.631 npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+#9 4.631 npm warn EBADENGINE }
+#9 4.636 npm warn EBADENGINE Unsupported engine {
+#9 4.636 npm warn EBADENGINE   package: '@adonisjs/application@9.0.0',
+#9 4.636 npm warn EBADENGINE   required: { node: '>=24.0.0' },
+#9 4.636 npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+#9 4.636 npm warn EBADENGINE }
+#9 4.636 npm warn EBADENGINE Unsupported engine {
+#9 4.636 npm warn EBADENGINE   package: '@adonisjs/assembler@8.0.0',
+#9 4.636 npm warn EBADENGINE   required: { node: '>=24.0.0' },
+#9 4.636 npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+#9 4.636 npm warn EBADENGINE }
+#9 4.636 npm warn EBADENGINE Unsupported engine {
+#9 4.636 npm warn EBADENGINE   package: '@adonisjs/auth@10.0.0',
+#9 4.636 npm warn EBADENGINE   required: { node: '>=24.0.0' },
+#9 4.636 npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+#9 4.636 npm warn EBADENGINE }
+#9 4.636 npm warn EBADENGINE Unsupported engine {
+#9 4.636 npm warn EBADENGINE   package: '@adonisjs/bodyparser@11.0.0',
+#9 4.636 npm warn EBADENGINE   required: { node: '>=24.0.0' },
+#9 4.636 npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+#9 4.636 npm warn EBADENGINE }
+#9 4.636 npm warn EBADENGINE Unsupported engine {
+#9 4.636 npm warn EBADENGINE   package: '@adonisjs/config@6.1.0',
+#9 4.636 npm warn EBADENGINE   required: { node: '>=24.0.0' },
+#9 4.636 npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+#9 4.636 npm warn EBADENGINE }
+#9 4.636 npm warn EBADENGINE Unsupported engine {
+#9 4.636 npm warn EBADENGINE   package: '@adonisjs/core@7.0.1',
+#9 4.636 npm warn EBADENGINE   required: { node: '>=24.0.0' },
+#9 4.636 npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+#9 4.636 npm warn EBADENGINE }
+#9 4.636 npm warn EBADENGINE Unsupported engine {
+#9 4.636 npm warn EBADENGINE   package: '@adonisjs/env@7.0.0',
+#9 4.636 npm warn EBADENGINE   required: { node: '>=24.0.0' },
+#9 4.636 npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+#9 4.636 npm warn EBADENGINE }
+#9 4.637 npm warn EBADENGINE Unsupported engine {
+#9 4.637 npm warn EBADENGINE   package: '@adonisjs/events@10.1.0',
+#9 4.637 npm warn EBADENGINE   required: { node: '>=24.0.0' },
+#9 4.637 npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+#9 4.637 npm warn EBADENGINE }
+#9 4.637 npm warn EBADENGINE Unsupported engine {
+#9 4.637 npm warn EBADENGINE   package: '@adonisjs/fold@11.0.0',
+#9 4.637 npm warn EBADENGINE   required: { node: '>=24.0.0' },
+#9 4.637 npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+#9 4.637 npm warn EBADENGINE }
+#9 4.638 npm warn EBADENGINE Unsupported engine {
+#9 4.638 npm warn EBADENGINE   package: '@adonisjs/health@3.1.0',
+#9 4.638 npm warn EBADENGINE   required: { node: '>=24.0.0' },
+#9 4.638 npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+#9 4.638 npm warn EBADENGINE }
+#9 4.638 npm warn EBADENGINE Unsupported engine {
+#9 4.638 npm warn EBADENGINE   package: '@adonisjs/http-server@8.0.0',
+#9 4.638 npm warn EBADENGINE   required: { node: '>=24.0.0' },
+#9 4.638 npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+#9 4.638 npm warn EBADENGINE }
+#9 4.638 npm warn EBADENGINE Unsupported engine {
+#9 4.638 npm warn EBADENGINE   package: '@adonisjs/http-transformers@2.3.1',
+#9 4.638 npm warn EBADENGINE   required: { node: '>=24.0.0' },
+#9 4.638 npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+#9 4.638 npm warn EBADENGINE }
+#9 4.638 npm warn EBADENGINE Unsupported engine {
+#9 4.638 npm warn EBADENGINE   package: '@adonisjs/logger@7.1.0',
+#9 4.638 npm warn EBADENGINE   required: { node: '>=24.0.0' },
+#9 4.638 npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+#9 4.638 npm warn EBADENGINE }
+#9 4.639 npm warn EBADENGINE Unsupported engine {
+#9 4.639 npm warn EBADENGINE   package: '@adonisjs/lucid@22.1.0',
+#9 4.639 npm warn EBADENGINE   required: { node: '>=24.0.0' },
+#9 4.639 npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+#9 4.639 npm warn EBADENGINE }
+#9 4.639 npm warn EBADENGINE Unsupported engine {
+#9 4.639 npm warn EBADENGINE   package: '@adonisjs/presets@3.0.0',
+#9 4.639 npm warn EBADENGINE   required: { node: '>=24.0.0' },
+#9 4.639 npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+#9 4.639 npm warn EBADENGINE }
+#9 4.639 npm warn EBADENGINE Unsupported engine {
+#9 4.639 npm warn EBADENGINE   package: '@adonisjs/repl@5.0.0',
+#9 4.639 npm warn EBADENGINE   required: { node: '>=24.0.0' },
+#9 4.639 npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+#9 4.639 npm warn EBADENGINE }
+#9 4.639 npm warn EBADENGINE Unsupported engine {
+#9 4.639 npm warn EBADENGINE   package: '@adonisjs/session@8.0.0',
+#9 4.639 npm warn EBADENGINE   required: { node: '>=24.0.0' },
+#9 4.639 npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+#9 4.639 npm warn EBADENGINE }
+#9 4.639 npm warn EBADENGINE Unsupported engine {
+#9 4.639 npm warn EBADENGINE   package: '@adonisjs/shield@9.0.0',
+#9 4.639 npm warn EBADENGINE   required: { node: '>=24.0.0' },
+#9 4.639 npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+#9 4.639 npm warn EBADENGINE }
+#9 4.642 npm warn EBADENGINE Unsupported engine {
+#9 4.642 npm warn EBADENGINE   package: '@japa/core@10.4.0',
+#9 4.642 npm warn EBADENGINE   required: { node: '>=24.0.0' },
+#9 4.642 npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+#9 4.642 npm warn EBADENGINE }
+#9 4.647 npm warn EBADENGINE Unsupported engine {
+#9 4.647 npm warn EBADENGINE   package: '@poppinss/ts-exec@1.4.4',
+#9 4.647 npm warn EBADENGINE   required: { node: '>=24.0.0' },
+#9 4.647 npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+#9 4.647 npm warn EBADENGINE }
+#9 4.649 npm warn EBADENGINE Unsupported engine {
+#9 4.649 npm warn EBADENGINE   package: '@tuyau/core@1.2.0',
+#9 4.649 npm warn EBADENGINE   required: { node: '>=24.0.0' },
+#9 4.649 npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+#9 4.649 npm warn EBADENGINE }
+#9 4.660 npm warn EBADENGINE Unsupported engine {
+#9 4.660 npm warn EBADENGINE   package: 'knex-dynamic-connection@4.0.0-next.0',
+#9 4.660 npm warn EBADENGINE   required: { node: '>=24.0.0' },
+#9 4.660 npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+#9 4.660 npm warn EBADENGINE }
+#9 4.660 npm warn EBADENGINE Unsupported engine {
+#9 4.660 npm warn EBADENGINE   package: 'parse-imports@3.0.0',
+#9 4.660 npm warn EBADENGINE   required: { node: '>= 22' },
+#9 4.660 npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+#9 4.660 npm warn EBADENGINE }
+#9 11.10 npm warn deprecated prebuild-install@7.1.3: No longer maintained. Please contact the author of the relevant native addon; alternatives are available. 
+#9 22.18 
+#9 22.18 added 546 packages, and audited 547 packages in 20s
+#9 22.18
+#9 22.18 172 packages are looking for funding
+#9 22.18   run `npm fund` for details
+#9 22.18 
+#9 22.18 found 0 vulnerabilities
+#9 22.19 npm notice
+#9 22.19 npm notice New major version of npm available! 10.8.2 -> 11.11.0
+#9 22.19 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.11.0
+#9 22.19 npm notice To update run: npm install -g npm@11.11.0
+#9 22.19 npm notice
+#9 DONE 42.7s
+
+#10 [5/9] RUN apk add --no-cache netcat-openbsd wget
+#10 1.333 (1/7) Installing libmd (1.1.0-r0)
+#10 1.346 (2/7) Installing libbsd (0.12.2-r0)
+#10 1.362 (3/7) Installing netcat-openbsd (1.234.1-r0)
+#10 1.374 (4/7) Installing libunistring (1.4.1-r0)
+#10 1.449 (5/7) Installing libidn2 (2.3.8-r0)
+#10 1.476 (6/7) Installing pcre2 (10.47-r0)
+#10 1.517 (7/7) Installing wget (1.25.0-r2)
+#10 1.548 Executing busybox-1.37.0-r30.trigger
+#10 1.561 OK: 14.2 MiB in 25 packages
+#10 DONE 1.8s
+
+#11 [6/9] COPY . .
+#11 DONE 17.7s
+
+#12 [7/9] RUN node ace build
+#12 0.761 
+#12 0.761 node:internal/modules/run_main:123
+#12 0.761     triggerUncaughtException(
+#12 0.761     ^
+#12 0.767 TypeError [ERR_UNKNOWN_FILE_EXTENSION]: Unknown file extension ".ts" for /app/bin/console.ts
+#12 0.767     at Object.getFileProtocolModuleFormat [as file:] (node:internal/modules/esm/get_format:189:9)
+#12 0.767     at defaultGetFormat (node:internal/modules/esm/get_format:232:36)
+#12 0.767     at defaultLoad (node:internal/modules/esm/load:145:22)
+#12 0.767     at async nextLoad (node:internal/modules/esm/hooks:864:22)
+#12 0.767     at async nextLoad (node:internal/modules/esm/hooks:864:22)
+#12 0.767     at async Hooks.load (node:internal/modules/esm/hooks:451:20)
+#12 0.767     at async MessagePort.handleMessage (node:internal/modules/esm/worker:196:18) {
+#12 0.767   code: 'ERR_UNKNOWN_FILE_EXTENSION'
+#12 0.767 }
+#12 0.767
+#12 0.767 Node.js v20.20.1
+#12 ERROR: process "/bin/sh -c node ace build" did not complete successfully: exit code: 1
+------
+ > [7/9] RUN node ace build:
+0.767     at defaultGetFormat (node:internal/modules/esm/get_format:232:36)
+0.767     at defaultLoad (node:internal/modules/esm/load:145:22)
+0.767     at async nextLoad (node:internal/modules/esm/hooks:864:22)
+0.767     at async nextLoad (node:internal/modules/esm/hooks:864:22)
+0.767     at async Hooks.load (node:internal/modules/esm/hooks:451:20)
+0.767     at async MessagePort.handleMessage (node:internal/modules/esm/worker:196:18) {
+0.767   code: 'ERR_UNKNOWN_FILE_EXTENSION'
+0.767 }
+0.767
+0.767 Node.js v20.20.1
+------
+[+] build 0/1
+ - Image backend-iii-app Building                                                                                                                        80.4s 
+failed to solve: process "/bin/sh -c node ace build" did not complete successfully: exit code: 1
+
+
+
+View build details: docker-desktop://dashboard/build/default/default/q7fdsa1fngyy8mj439gv4xk03
+
+PS C:\dev\backend-III> docker compose build
+time="2026-03-10T12:18:23-03:00" level=warning msg="C:\\dev\\backend-III\\docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+#1 [internal] load local bake definitions
+#1 reading from stdin 517B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 326B done
+#2 DONE 0.0s
+
+#3 [auth] library/node:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#4 [internal] load metadata for docker.io/library/node:24-alpine
+#4 DONE 1.6s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 2B done
+#5 DONE 0.0s
+
+#6 [1/9] FROM docker.io/library/node:24-alpine@sha256:7fddd9ddeae8196abf4a3ef2de34e11f7b1a722119f91f28ddf1e99dcafdf114
+#6 resolve docker.io/library/node:24-alpine@sha256:7fddd9ddeae8196abf4a3ef2de34e11f7b1a722119f91f28ddf1e99dcafdf114 0.0s done
+#6 DONE 0.1s
+
+#7 [internal] load build context
+#7 transferring context: 1.16MB 1.1s done
+#7 DONE 1.2s
+
+#6 [1/9] FROM docker.io/library/node:24-alpine@sha256:7fddd9ddeae8196abf4a3ef2de34e11f7b1a722119f91f28ddf1e99dcafdf114
+#6 sha256:867a770c9b3548b3b2357b54112add9711dd53d8679a3c1bb4c3d9ac675a5c02 448B / 448B 0.4s done
+#6 sha256:d8573c1c310e7789794576ea96c600be3bb905a6cf0ef787f89922d992d39b78 3.15MB / 51.11MB 0.9s
+#6 sha256:0653b96c7e89eb8a796a819757fa29a918692669e68f09eac2215c6401407538 0B / 1.26MB 0.9s
+#6 sha256:0653b96c7e89eb8a796a819757fa29a918692669e68f09eac2215c6401407538 1.26MB / 1.26MB 1.1s done
+#6 sha256:d8573c1c310e7789794576ea96c600be3bb905a6cf0ef787f89922d992d39b78 6.29MB / 51.11MB 1.2s
+#6 sha256:d8573c1c310e7789794576ea96c600be3bb905a6cf0ef787f89922d992d39b78 9.44MB / 51.11MB 1.5s
+#6 sha256:d8573c1c310e7789794576ea96c600be3bb905a6cf0ef787f89922d992d39b78 12.58MB / 51.11MB 1.8s
+#6 sha256:d8573c1c310e7789794576ea96c600be3bb905a6cf0ef787f89922d992d39b78 16.78MB / 51.11MB 2.1s
+#6 sha256:d8573c1c310e7789794576ea96c600be3bb905a6cf0ef787f89922d992d39b78 19.92MB / 51.11MB 2.4s
+#6 sha256:d8573c1c310e7789794576ea96c600be3bb905a6cf0ef787f89922d992d39b78 23.07MB / 51.11MB 2.7s
+#6 sha256:d8573c1c310e7789794576ea96c600be3bb905a6cf0ef787f89922d992d39b78 27.26MB / 51.11MB 3.0s
+#6 sha256:d8573c1c310e7789794576ea96c600be3bb905a6cf0ef787f89922d992d39b78 30.41MB / 51.11MB 3.3s
+#6 sha256:d8573c1c310e7789794576ea96c600be3bb905a6cf0ef787f89922d992d39b78 34.60MB / 51.11MB 3.6s
+#6 sha256:d8573c1c310e7789794576ea96c600be3bb905a6cf0ef787f89922d992d39b78 37.75MB / 51.11MB 3.9s
+#6 sha256:d8573c1c310e7789794576ea96c600be3bb905a6cf0ef787f89922d992d39b78 40.89MB / 51.11MB 4.2s
+#6 sha256:d8573c1c310e7789794576ea96c600be3bb905a6cf0ef787f89922d992d39b78 45.09MB / 51.11MB 4.5s
+#6 sha256:d8573c1c310e7789794576ea96c600be3bb905a6cf0ef787f89922d992d39b78 48.23MB / 51.11MB 5.0s
+#6 sha256:d8573c1c310e7789794576ea96c600be3bb905a6cf0ef787f89922d992d39b78 51.11MB / 51.11MB 5.3s
+#6 sha256:d8573c1c310e7789794576ea96c600be3bb905a6cf0ef787f89922d992d39b78 51.11MB / 51.11MB 6.2s done
+#6 extracting sha256:d8573c1c310e7789794576ea96c600be3bb905a6cf0ef787f89922d992d39b78
+#6 extracting sha256:d8573c1c310e7789794576ea96c600be3bb905a6cf0ef787f89922d992d39b78 2.5s done
+#6 DONE 8.9s
+
+#6 [1/9] FROM docker.io/library/node:24-alpine@sha256:7fddd9ddeae8196abf4a3ef2de34e11f7b1a722119f91f28ddf1e99dcafdf114
+#6 extracting sha256:0653b96c7e89eb8a796a819757fa29a918692669e68f09eac2215c6401407538
+#6 extracting sha256:0653b96c7e89eb8a796a819757fa29a918692669e68f09eac2215c6401407538 0.5s done
+#6 DONE 9.3s
+
+#6 [1/9] FROM docker.io/library/node:24-alpine@sha256:7fddd9ddeae8196abf4a3ef2de34e11f7b1a722119f91f28ddf1e99dcafdf114
+#6 extracting sha256:867a770c9b3548b3b2357b54112add9711dd53d8679a3c1bb4c3d9ac675a5c02
+#6 extracting sha256:867a770c9b3548b3b2357b54112add9711dd53d8679a3c1bb4c3d9ac675a5c02 0.3s done
+#6 DONE 9.6s
+
+#8 [2/9] WORKDIR /app
+#8 DONE 5.1s
+
+#9 [3/9] COPY package*.json ./
+#9 DONE 1.2s
+
+#10 [4/9] RUN npm ci
+#10 5.603 npm warn deprecated prebuild-install@7.1.3: No longer maintained. Please contact the author of the relevant native addon; alternatives are available.
+#10 18.30 
+#10 18.30 added 546 packages, and audited 547 packages in 17s
+#10 18.30
+#10 18.30 172 packages are looking for funding
+#10 18.30   run `npm fund` for details
+#10 18.30
+#10 18.30 found 0 vulnerabilities
+#10 18.31 npm notice
+#10 18.31 npm notice New minor version of npm available! 11.9.0 -> 11.11.0
+#10 18.31 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.11.0
+#10 18.31 npm notice To update run: npm install -g npm@11.11.0
+#10 18.31 npm notice
+#10 DONE 25.5s
+
+#11 [5/9] RUN apk add --no-cache netcat-openbsd wget
+#11 1.102 (1/7) Installing libmd (1.1.0-r0)
+#11 1.118 (2/7) Installing libbsd (0.12.2-r0)
+#11 1.129 (3/7) Installing netcat-openbsd (1.234.1-r0)
+#11 1.141 (4/7) Installing libunistring (1.4.1-r0)
+#11 1.215 (5/7) Installing libidn2 (2.3.8-r0)
+#11 1.234 (6/7) Installing pcre2 (10.47-r0)
+#11 1.361 (7/7) Installing wget (1.25.0-r2)
+#11 1.395 Executing busybox-1.37.0-r30.trigger
+#11 1.403 OK: 14.2 MiB in 25 packages
+#11 DONE 2.2s
+
+#12 [6/9] COPY . .
+#12 DONE 11.1s
+
+#13 [7/9] RUN node ace build
+#13 1.867 [ info ] loading hooks...
+#13 1.874 [ info ] generating indexes...
+#13 1.887 [ info ] codegen: created 5 file(s)
+#13 1.887 [ info ] cleaning up output directory (build)
+#13 1.888 [ info ] compiling typescript source (tsc)
+#13 5.432 app/middleware/role_middleware.ts(2,1): error TS6133: 'Roles' is declared but its value is never read.
+#13 5.432 app/services/purchase_service.ts(14,54): error TS2769: No overload matches this call.
+#13 5.432   The last overload gave the following error.
+#13 5.432     Argument of type 'string' is not assignable to parameter of type 'string[]'.
+#13 5.433 app/services/purchase_service.ts(18,72): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'number'.
+#13 5.433 tests/helpers/factories.ts(39,5): error TS2322: Type 'number | null' is not assignable to type 'number | undefined'.
+#13 5.433   Type 'null' is not assignable to type 'number | undefined'.
+#13 5.486 [ info ] created ace file (build/ace.js)
+#13 5.508 ╭─────────────────────────────────────────────────────────────────────────────────────────────╮
+#13 5.508 │                                                                                             │
+#13 5.508 │    Cannot complete the build process as there are TypeScript errors.                        │
+#13 5.508 │    Use "--ignore-ts-errors" flag to ignore TypeScript errors and continue the build.        │
+#13 5.508 │                                                                                             │
+#13 5.508 ╰─────────────────────────────────────────────────────────────────────────────────────────────╯
+#13 ERROR: process "/bin/sh -c node ace build" did not complete successfully: exit code: 1
+------
+ > [7/9] RUN node ace build:
+5.433 app/services/purchase_service.ts(18,72): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'number'.
+5.433 tests/helpers/factories.ts(39,5): error TS2322: Type 'number | null' is not assignable to type 'number | undefined'.
+5.433   Type 'null' is not assignable to type 'number | undefined'.
+5.486 [ info ] created ace file (build/ace.js)
+5.508 ╭─────────────────────────────────────────────────────────────────────────────────────────────╮
+5.508 │                                                                                             │
+5.508 │    Cannot complete the build process as there are TypeScript errors.                        │
+5.508 │    Use "--ignore-ts-errors" flag to ignore TypeScript errors and continue the build.        │
+5.508 │                                                                                             │
+5.508 ╰─────────────────────────────────────────────────────────────────────────────────────────────╯
+------
+[+] build 0/1
+ - Image backend-iii-app Building                                                                                                                        63.1s 
+Dockerfile:12
+
+--------------------
+
+  10 |     COPY . .
+
+  11 |
+
+  12 | >>> RUN node ace build
+
+  13 |
+
+  14 |     COPY docker/wait-for-db.sh /usr/local/bin/wait-for-db.sh
+
+--------------------
+
+failed to solve: process "/bin/sh -c node ace build" did not complete successfully: exit code: 1
+
+
+
+View build details: docker-desktop://dashboard/build/default/default/qnk1rh44pwn5i968g8v0tr3ap
+
+PS C:\dev\backend-III> docker compose up
+time="2026-03-10T12:19:26-03:00" level=warning msg="C:\\dev\\backend-III\\docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+#1 [internal] load local bake definitions
+#1 reading from stdin 517B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 326B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:24-alpine
+#3 DONE 0.6s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [1/9] FROM docker.io/library/node:24-alpine@sha256:7fddd9ddeae8196abf4a3ef2de34e11f7b1a722119f91f28ddf1e99dcafdf114
+#5 resolve docker.io/library/node:24-alpine@sha256:7fddd9ddeae8196abf4a3ef2de34e11f7b1a722119f91f28ddf1e99dcafdf114 0.0s done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 1.16MB 1.1s done
+#6 DONE 1.2s
+
+#7 [5/9] RUN apk add --no-cache netcat-openbsd wget
+#7 CACHED
+
+#8 [2/9] WORKDIR /app
+#8 CACHED
+
+#9 [3/9] COPY package*.json ./
+#9 CACHED
+
+#10 [4/9] RUN npm ci
+#10 CACHED
+
+#11 [6/9] COPY . .
+#11 CACHED
+
+#12 [7/9] RUN node ace build
+#12 1.742 [ info ] loading hooks...
+#12 1.748 [ info ] generating indexes...
+#12 1.762 [ info ] codegen: created 5 file(s)
+#12 1.762 [ info ] cleaning up output directory (build)
+#12 1.763 [ info ] compiling typescript source (tsc)
+#12 5.442 app/middleware/role_middleware.ts(2,1): error TS6133: 'Roles' is declared but its value is never read.
+#12 5.442 app/services/purchase_service.ts(14,54): error TS2769: No overload matches this call.
+#12 5.442   The last overload gave the following error.
+#12 5.442     Argument of type 'string' is not assignable to parameter of type 'string[]'.
+#12 5.442 app/services/purchase_service.ts(18,72): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'number'.
+#12 5.442 tests/helpers/factories.ts(39,5): error TS2322: Type 'number | null' is not assignable to type 'number | undefined'.
+#12 5.442   Type 'null' is not assignable to type 'number | undefined'.
+#12 5.519 [ info ] created ace file (build/ace.js)
+#12 5.548 ╭─────────────────────────────────────────────────────────────────────────────────────────────╮
+#12 5.548 │                                                                                             │
+#12 5.548 │    Cannot complete the build process as there are TypeScript errors.                        │
+#12 5.548 │    Use "--ignore-ts-errors" flag to ignore TypeScript errors and continue the build.        │
+#12 5.548 │                                                                                             │
+#12 5.548 ╰─────────────────────────────────────────────────────────────────────────────────────────────╯
+#12 ERROR: process "/bin/sh -c node ace build" did not complete successfully: exit code: 1
+------
+ > [7/9] RUN node ace build:
+5.442 app/services/purchase_service.ts(18,72): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'number'.
+5.442 tests/helpers/factories.ts(39,5): error TS2322: Type 'number | null' is not assignable to type 'number | undefined'.
+5.442   Type 'null' is not assignable to type 'number | undefined'.
+5.519 [ info ] created ace file (build/ace.js)
+5.548 ╭─────────────────────────────────────────────────────────────────────────────────────────────╮
+5.548 │                                                                                             │
+5.548 │    Cannot complete the build process as there are TypeScript errors.                        │
+5.548 │    Use "--ignore-ts-errors" flag to ignore TypeScript errors and continue the build.        │
+5.548 │                                                                                             │
+5.548 ╰─────────────────────────────────────────────────────────────────────────────────────────────╯
+------
+[+] up 0/1
+ - Image backend-iii-app Building                                                                                                                         8.5s 
+Dockerfile:12
+
+--------------------
+
+  10 |     COPY . .
+
+  11 |
+
+  12 | >>> RUN node ace build
+
+  13 |
+
+  14 |     COPY docker/wait-for-db.sh /usr/local/bin/wait-for-db.sh
+
+--------------------
+
+failed to solve: process "/bin/sh -c node ace build" did not complete successfully: exit code: 1
+
+
+
+View build details: docker-desktop://dashboard/build/default/default/s7fmsfnryy1i0i4xcd7vo722n
+
+PS C:\dev\backend-III> 
