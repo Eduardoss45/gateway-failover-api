@@ -8,6 +8,8 @@ import ClientsController from '#controllers/clients_controller'
 import TransactionsController from '#controllers/transactions_controller'
 import { middleware } from '#start/kernel'
 
+router.get('/health', () => ({ status: 'ok' }))
+
 // Public
 router.post('/purchase', [PurchasesController, 'store'])
 router.post('/login', [AuthController, 'login'])
@@ -21,7 +23,7 @@ router
     router.put('/users/:id', [UsersController, 'update'])
     router.delete('/users/:id', [UsersController, 'destroy'])
   })
-  .use([middleware.auth(), middleware.roles(['ADMIN'])])
+  .use([middleware.auth(), middleware.roles(['ADMIN', 'MANAGER'])])
 
 router
   .group(() => {
@@ -36,7 +38,7 @@ router
     router.put('/products/:id', [ProductsController, 'update'])
     router.delete('/products/:id', [ProductsController, 'destroy'])
   })
-  .use([middleware.auth(), middleware.roles(['ADMIN', 'MANAGER'])])
+  .use([middleware.auth(), middleware.roles(['ADMIN', 'MANAGER', 'FINANCE'])])
 
 router
   .group(() => {

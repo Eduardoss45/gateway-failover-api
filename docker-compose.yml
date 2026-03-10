@@ -14,6 +14,57 @@ services:
       MYSQL_PASSWORD: betalent
     volumes:
       - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: ./betalent-api
+    container_name: betalent_app
+    restart: always
+    ports:
+      - "3333:3333"
+    env_file:
+      - ./betalent-api/.env
+    environment:
+      NODE_ENV: production
+      DB_HOST: mysql
+      GW1_BASE_URL: http://gateway1:3001
+      GW2_BASE_URL: http://gateway2:3002
+      APP_URL: http://localhost:3333
+    depends_on:
+      mysql:
+        condition: service_healthy
+    command:
+      [
+        "sh",
+        "-c",
+        "wait-for-db.sh && node ace migration:run && node ace db:seed && node build/server.js",
+      ]
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3333/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  gateway1:
+    image: matheusprotzen/gateways-mock
+    container_name: betalent_gateway1
+    ports:
+      - "3001:3001"
+    environment:
+      REMOVE_AUTH: "false"
+
+  gateway2:
+    image: matheusprotzen/gateways-mock
+    container_name: betalent_gateway2
+    ports:
+      - "3002:3002"
+    environment:
+      REMOVE_AUTH: "false"
 
 volumes:
   mysql_data:

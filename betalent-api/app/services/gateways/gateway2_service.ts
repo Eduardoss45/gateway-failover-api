@@ -1,8 +1,9 @@
 import axios from 'axios'
 import { GatewayInterface, ChargePayload, GatewayResponse } from './gateway_interface.ts'
+import env from '#start/env'
 
 export default class Gateway2Service implements GatewayInterface {
-  private baseUrl = 'http://localhost:3002'
+  private baseUrl = env.get('GW2_BASE_URL')
 
   async charge(payload: ChargePayload): Promise<GatewayResponse> {
     try {

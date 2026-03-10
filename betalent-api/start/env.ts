@@ -40,4 +40,5 @@ export default await Env.create(new URL('../', import.meta.url), {
   GW1_BASE_URL: Env.schema.string({ format: 'url', tld: false }),
   GW1_EMAIL: Env.schema.string(),
   GW1_TOKEN: Env.schema.string(),
+  GW2_BASE_URL: Env.schema.string({ format: 'url', tld: false }),
 })

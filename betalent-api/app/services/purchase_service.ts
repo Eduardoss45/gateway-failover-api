@@ -42,7 +42,7 @@ export default class PurchaseService {
     })
 
     return db.transaction(async (trx) => {
-      const client = await Client.query({ client: trx }).firstOrCreate({ email }, { name })
+      const client = await Client.firstOrCreate({ email }, { name }, { client: trx })
 
       const transaction = await Transaction.create(
         {

@@ -1,4 +1,5 @@
 import Transaction from '#models/transaction'
+import Gateway from '#models/gateway'
 import Gateway1Service from './gateways/gateway1_service.ts'
 import Gateway2Service from './gateways/gateway2_service.ts'
 
@@ -14,12 +15,17 @@ export default class RefundService {
       throw new Error('Transaction missing gateway data')
     }
 
-    const gatewayId = transaction.gatewayId
+    const gateway = await Gateway.find(transaction.gatewayId)
+    if (!gateway) {
+      throw new Error('Gateway not found')
+    }
+
+    const gatewayKey = gateway.name.replace(/\s+/g, '').toLowerCase()
     let refunded = false
 
-    if (gatewayId === 1) {
+    if (gatewayKey === 'gateway1') {
       refunded = await new Gateway1Service().refund(transaction.externalId)
-    } else if (gatewayId === 2) {
+    } else if (gatewayKey === 'gateway2') {
       refunded = await new Gateway2Service().refund(transaction.externalId)
     } else {
       throw new Error('Unsupported gateway')
