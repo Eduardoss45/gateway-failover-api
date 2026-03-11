@@ -1,14 +1,23 @@
 import router from '@adonisjs/core/services/router'
-import PurchasesController from '#controllers/purchases_controller'
-import AuthController from '#controllers/auth_controller'
-import UsersController from '#controllers/users_controller'
-import ProductsController from '#controllers/products_controller'
-import GatewaysController from '#controllers/gateways_controller'
-import ClientsController from '#controllers/clients_controller'
-import TransactionsController from '#controllers/transactions_controller'
+import AutoSwagger from 'adonis-autoswagger'
+import swagger from '#config/swagger'
 import { middleware } from '#start/kernel'
 
+const PurchasesController = () => import('#controllers/purchases_controller')
+const AuthController = () => import('#controllers/auth_controller')
+const UsersController = () => import('#controllers/users_controller')
+const ProductsController = () => import('#controllers/products_controller')
+const GatewaysController = () => import('#controllers/gateways_controller')
+const ClientsController = () => import('#controllers/clients_controller')
+const TransactionsController = () => import('#controllers/transactions_controller')
+
 router.get('/health', () => ({ status: 'ok' }))
+router.get('/swagger', async () => {
+  return AutoSwagger.default.docs(router.toJSON(), swagger)
+})
+router.get('/docs', async () => {
+  return AutoSwagger.default.ui('/swagger', swagger)
+})
 
 // Public
 router.post('/purchase', [PurchasesController, 'store'])

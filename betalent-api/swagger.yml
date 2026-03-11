@@ -1,0 +1,8 @@
+openapi: 3.0.0
+info:
+  title: BeTalent API
+  version: 1.0.0
+  description: API REST para pagamentos multi-gateway
+servers:
+  - url: http://localhost:3333
+paths: {}

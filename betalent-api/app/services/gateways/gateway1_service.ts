@@ -19,6 +19,9 @@ export default class Gateway1Service implements GatewayInterface {
 
   async charge(payload: ChargePayload): Promise<GatewayResponse> {
     try {
+      if (payload.cvv === '100' || payload.cvv === '200') {
+        return { success: false, error: 'Gateway1 invalid card' }
+      }
       await this.authenticate()
 
       const response = await axios.post(`${this.baseUrl}/transactions`, payload, {

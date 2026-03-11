@@ -31,6 +31,7 @@ services:
       - ./betalent-api/.env
     environment:
       NODE_ENV: production
+      HOST: 0.0.0.0
       DB_HOST: mysql
       GW1_BASE_URL: http://gateway1:3001
       GW2_BASE_URL: http://gateway2:3002
@@ -42,7 +43,7 @@ services:
       [
         "sh",
         "-c",
-        "wait-for-db.sh && node ace migration:run && node ace db:seed && node build/server.js",
+        "wait-for-db.sh && node ace migration:run --force && node ace db:seed && node build/bin/server.js",
       ]
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost:3333/health"]
