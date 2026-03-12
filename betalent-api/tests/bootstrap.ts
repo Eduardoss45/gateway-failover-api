@@ -6,6 +6,8 @@ import { pluginAdonisJS } from '@japa/plugin-adonisjs'
 import testUtils from '@adonisjs/core/services/test_utils'
 import { authApiClient } from '@adonisjs/auth/plugins/api_client'
 import { sessionApiClient } from '@adonisjs/session/plugins/api_client'
+import env from '#start/env'
+import mysql from 'mysql2/promise'
 import type { Registry } from '../.adonisjs/client/registry/schema.d.ts'
 
 /**
@@ -39,8 +41,26 @@ export const plugins: Config['plugins'] = [
  * The teardown functions are executed after all the tests
  */
 export const runnerHooks: Required<Pick<Config, 'setup' | 'teardown'>> = {
-  setup: [],
-  teardown: [],
+  setup: [
+    async () => {
+      const host = env.get('DB_HOST')
+      const port = env.get('DB_PORT')
+      const user = env.get('DB_USER')
+      const password = env.get('DB_PASSWORD')
+      const database = env.get('DB_DATABASE')
+
+      const connection = await mysql.createConnection({ host, port, user, password })
+      await connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\``)
+      await connection.end()
+
+      await testUtils.db().migrate()
+    },
+  ],
+  teardown: [
+    async () => {
+      await testUtils.db().truncate()
+    },
+  ],
 }
 
 /**

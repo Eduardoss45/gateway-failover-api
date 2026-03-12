@@ -1,5 +1,9 @@
 # 🏦 Sistema de Pagamentos Multi-Gateway – Projeto BeTalent Nível 3
 
+> Repositório publicado a partir de uma conta secundária do GitHub devido à perda temporária de acesso à conta principal (falha no dispositivo de autenticação de dois fatores).
+
+- [Eduardoss45](https://github.com/Eduardoss45)
+
 Este projeto é a implementação do **desafio técnico BeTalent**, desenvolvido com **AdonisJS 7** e **MySQL**, com suporte a múltiplos usuários e roles, fallback automático entre gateways e testes automatizados.
 
 Ele simula um sistema de compras que integra **múltiplos gateways de pagamento**, seguindo uma ordem de prioridade definida e garantindo persistência de transações e produtos comprados.
@@ -26,9 +30,9 @@ O projeto depende das seguintes variáveis:
 | -------------- | ------------------------------------------ | ---------------------------------- |
 | `DB_HOST`      | Host do MySQL                              | `localhost`                        |
 | `DB_PORT`      | Porta do MySQL                             | `3306`                             |
-| `DB_USER`      | Usuário do banco                           | `root`                             |
-| `DB_PASSWORD`  | Senha do banco                             | `password`                         |
-| `DB_DATABASE`  | Banco de dados principal                   | `app`                              |
+| `DB_USER`      | Usuário do banco                           | `betalent`                         |
+| `DB_PASSWORD`  | Senha do banco                             | `betalent`                         |
+| `DB_DATABASE`  | Banco de dados principal                   | `betalent`                         |
 | `APP_KEY`      | Chave para criptografia do AdonisJS        | gerada via `node ace key:generate` |
 | `GW1_BASE_URL` | URL base do Gateway 1                      | `http://localhost:3001`            |
 | `GW1_EMAIL`    | Email usado para autenticação no Gateway 1 | `dev@betalent.tech`                |
@@ -114,31 +118,35 @@ docker run -p 3001:3001 -p 3002:3002 -e REMOVE_AUTH='true' matheusprotzen/gatewa
 
 ### Privadas (roles)
 
-| Endpoint                   | Método | Roles Permitidos              | Observação                                                      |
-| -------------------------- | ------ | ----------------------------- | --------------------------------------------------------------- |
-| `/gateways/:id/status`     | PATCH  | ADMIN                         | Ativa/desativa gateway                                          |
-| `/gateways/:id/priority`   | PATCH  | ADMIN                         | Altera prioridade do gateway                                    |
-| `/users`                   | CRUD   | ADMIN                         | Gerencia usuários                                               |
-| `/products`                | CRUD   | ADMIN, MANAGER, FINANCE, USER | Todos podem `GET`, apenas ADMIN/MANAGER podem `POST/PUT/DELETE` |
-| `/clients`                 | GET    | ADMIN, MANAGER, FINANCE       | Lista clientes                                                  |
-| `/clients/:id`             | GET    | ADMIN, MANAGER, FINANCE       | Detalhes de cliente e compras                                   |
-| `/transactions`            | GET    | ADMIN, MANAGER, FINANCE       | Lista todas as transações                                       |
-| `/transactions/:id`        | GET    | ADMIN, MANAGER, FINANCE       | Detalhes de uma transação                                       |
-| `/transactions/:id/refund` | POST   | ADMIN, FINANCE                | Reembolso via gateway                                           |
+| Endpoint                   | Método | Roles Permitidos              | Observação                                                              |
+| -------------------------- | ------ | ----------------------------- | ----------------------------------------------------------------------- |
+| `/gateways/:id/status`     | PATCH  | ADMIN                         | Ativa/desativa gateway                                                  |
+| `/gateways/:id/priority`   | PATCH  | ADMIN                         | Altera prioridade do gateway                                            |
+| `/users`                   | CRUD   | ADMIN, MANAGER                | Gerencia usuários                                                       |
+| `/products`                | CRUD   | ADMIN, MANAGER, FINANCE, USER | Todos podem `GET`, apenas ADMIN/MANAGER/FINANCE podem `POST/PUT/DELETE` |
+| `/clients`                 | GET    | ADMIN, MANAGER, FINANCE       | Lista clientes                                                          |
+| `/clients/:id`             | GET    | ADMIN, MANAGER, FINANCE       | Detalhes de cliente e compras                                           |
+| `/transactions`            | GET    | ADMIN, MANAGER, FINANCE       | Lista todas as transações                                               |
+| `/transactions/:id`        | GET    | ADMIN, MANAGER, FINANCE       | Detalhes de uma transação                                               |
+| `/transactions/:id/refund` | POST   | ADMIN, FINANCE                | Reembolso via gateway                                                   |
 
 ---
 
 ## 🧪 Testes Automatizados
 
-- Banco de teste: `app_test` (`NODE_ENV=test node ace migration:run`)
-- Seeds: `NODE_ENV=test node ace db:seed`
-- Rodar testes:
+Os testes usam um banco isolado (`app_test`) definido em `.env.test`.
+A inicialização dos testes é gerenciada por `tests/bootstrap.ts`, que:
+
+- cria o banco de testes caso não exista
+- executa automaticamente todas as migrations antes da execução
+
+Para rodar os testes:
 
 ```bash
 node ace test
 ```
 
-- Cobertura: autenticação, roles, CRUD, compras, fallback e reembolsos
+Cobertura atual inclui: autenticação, controle de roles, CRUD de usuários / produtos, fluxo de compras, gateways de fallback e reembolsos
 
 ---
 

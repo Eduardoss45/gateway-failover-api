@@ -3,10 +3,26 @@ import Client from '#models/client'
 import Transaction from '#models/transaction'
 import PaymentService from './payment_service.ts'
 import db from '@adonisjs/lucid/services/db'
+import { Exception } from '@adonisjs/core/exceptions'
 
 export default class PurchaseService {
   async execute(payload: any) {
     const { name, email, cardNumber, cvv, products } = payload
+
+    const seen = new Set<number>()
+
+    for (const item of products) {
+      const id = Number(item.product_id)
+
+      if (seen.has(id)) {
+        throw new Exception('Duplicate products are not allowed', {
+          status: 422,
+          code: 'E_DUPLICATE_PRODUCTS',
+        })
+      }
+
+      seen.add(id)
+    }
 
     const productIds = products
       .map((p: any) => Number(p.product_id))
@@ -18,58 +34,75 @@ export default class PurchaseService {
     if (dbProducts.length !== uniqueProductIds.length) {
       const foundIds = new Set(dbProducts.map((p) => p.id))
       const missingIds = uniqueProductIds.filter((id) => !foundIds.has(id))
-      throw new Error(`Products not found: ${missingIds.join(', ')}`)
+      throw new Exception(`Products not found: ${missingIds.join(', ')}`, {
+        status: 404,
+        code: 'E_PRODUCTS_NOT_FOUND',
+      })
     }
 
     let total = 0
 
+    const productMap = new Map(dbProducts.map((p) => [p.id, p]))
+
     for (const item of products) {
-      const product = dbProducts.find((p) => p.id === item.product_id)
-
-      if (!product) {
-        throw new Error(`Product ${item.product_id} not found`)
-      }
-
+      const product = productMap.get(Number(item.product_id))!
+      if (!product) return
       total += product.amount * Number(item.quantity)
     }
 
     const paymentService = new PaymentService()
 
-    const payment = await paymentService.charge({
-      amount: total,
-      name,
-      email,
-      cardNumber,
-      cvv,
-    })
+    let payment
 
-    return db.transaction(async (trx) => {
-      const client = await Client.firstOrCreate({ email }, { name }, { client: trx })
+    try {
+      payment = await paymentService.charge({
+        amount: total,
+        name,
+        email,
+        cardNumber,
+        cvv,
+      })
+    } catch (error) {
+      throw new Exception('Payment gateway unavailable', {
+        status: 503,
+        code: 'E_PAYMENT_GATEWAY_ERROR',
+      })
+    }
 
-      const transaction = await Transaction.create(
-        {
-          clientId: client.id,
-          gatewayId: payment.gatewayId!,
-          externalId: payment.externalId,
-          status: payment.success ? 'paid' : 'failed',
-          amount: total,
-          cardLastNumbers: cardNumber.slice(-4),
-        },
-        { client: trx }
-      )
+    try {
+      return db.transaction(async (trx) => {
+        const client = await Client.firstOrCreate({ email }, { name }, { client: trx })
+        const transaction = await Transaction.create(
+          {
+            clientId: client.id,
+            gatewayId: payment.gatewayId!,
+            externalId: payment.externalId,
+            status: payment.success ? 'paid' : 'failed',
+            amount: total,
+            cardLastNumbers: cardNumber.slice(-4),
+          },
+          { client: trx }
+        )
 
-      const pivotData: Record<number, { quantity: number }> = {}
+        const pivotData: Record<number, { quantity: number }> = {}
 
-      for (const item of products) {
-        pivotData[item.product_id] = {
-          quantity: item.quantity,
+        for (const item of products) {
+          pivotData[item.product_id] = {
+            quantity: item.quantity,
+          }
         }
-      }
 
-      transaction.useTransaction(trx)
-      await transaction.related('products').attach(pivotData)
+        transaction.useTransaction(trx)
 
-      return transaction
-    })
+        await transaction.related('products').attach(pivotData)
+
+        return transaction
+      })
+    } catch (error) {
+      throw new Exception('Transaction failed', {
+        status: 500,
+        code: 'E_TRANSACTION_ERROR',
+      })
+    }
   }
 }

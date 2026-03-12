@@ -5,7 +5,8 @@ import { createUserValidator, updateUserValidator } from '#validators/user_valid
 export default class UsersController {
   async store({ request }: HttpContext) {
     const data = await request.validateUsing(createUserValidator)
-    return User.create(data)
+    const user = await User.create(data)
+    return user
   }
 
   async index() {
@@ -22,7 +23,11 @@ export default class UsersController {
     const user = await User.find(params.id)
     if (!user) return response.notFound({ message: 'User not found' })
 
-    const data = await request.validateUsing(updateUserValidator)
+    const data = await request.validateUsing(updateUserValidator, {
+      meta: {
+        userId: user.id,
+      },
+    })
 
     user.merge(data)
     await user.save()
