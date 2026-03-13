@@ -89,7 +89,7 @@ test.group('Purchases', (group) => {
 
     const response = await client.post('/purchase').json({
       email: 'buyer@example.com',
-    })
+    } as any)
 
     response.assertStatus(422)
   })

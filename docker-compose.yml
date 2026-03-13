@@ -38,6 +38,7 @@ services:
       GW2_TOKEN: tk_f2198cc671b5289fa856
       GW2_SECRET: 3d15e8ed6131446ea7e3456728b1211f
       APP_URL: http://localhost:3333
+      SEED_DB: false
     depends_on:
       mysql:
         condition: service_healthy
@@ -45,7 +46,7 @@ services:
       sh -c "
       wait-for-db.sh &&
       node ace migration:run --force &&
-      if [ \"${SEED_DB}\" = \"true\" ]; then node ace db:seed; fi &&
+      if [ \"$$SEED_DB\" = \"true\" ]; then node ace db:seed; fi &&
       node build/bin/server.js
       "
     healthcheck:

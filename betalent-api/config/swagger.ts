@@ -6,10 +6,10 @@ export default {
     description: 'API REST para pagamentos multi-gateway',
   },
   tagIndex: 1,
-  productionEnv: 'production',
+  productionEnv: 'disabled',
   snakeCase: true,
   debug: false,
-  ignore: ['/swagger', '/docs', '/health'],
+  ignore: ['/api/docs-json', '/api/swagger-ui', '/health'],
   preferredPutPatch: 'PUT',
   common: {
     parameters: {},
