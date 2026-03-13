@@ -73,6 +73,29 @@ export default class PurchaseService {
       })
     }
 
+    try {
+      return db.transaction(async (trx) => {
+        const client = await Client.firstOrCreate({ email }, { name }, { client: trx })
+        const transaction = await Transaction.create(
+          {
+            clientId: client.id,
+            gatewayId: payment.gatewayId!,
+            externalId: payment.externalId,
+            status: payment.success ? 'paid' : 'failed',
+            amount: total,
+            cardLastNumbers: cardNumber.slice(-4),
+          },
+          { client: trx }
+        )
+
+        const pivotData: Record<number, { quantity: number }> = {}
+
+        for (const item of products) {
+          pivotData[item.product_id] = {
+            quantity: item.quantity,
+          }
+        }
+
         transaction.useTransaction(trx)
 
         await transaction.related('products').attach(pivotData)

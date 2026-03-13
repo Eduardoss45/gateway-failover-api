@@ -41,12 +41,13 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
-    command:
-      [
-        "sh",
-        "-c",
-        "wait-for-db.sh && node ace migration:run --force && node ace db:seed && node build/bin/server.js",
-      ]
+    command: >
+      sh -c "
+      wait-for-db.sh &&
+      node ace migration:run --force &&
+      if [ \"${SEED_DB}\" = \"true\" ]; then node ace db:seed; fi &&
+      node build/bin/server.js
+      "
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost:3333/health"]
       interval: 10s
