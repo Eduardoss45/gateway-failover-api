@@ -4,6 +4,8 @@ import env from '#start/env'
 
 export default class Gateway2Service implements GatewayInterface {
   private baseUrl = env.get('GW2_BASE_URL')
+  private token = env.get('GW2_TOKEN')
+  private secret = env.get('GW2_SECRET')
 
   async charge(payload: ChargePayload): Promise<GatewayResponse> {
     try {
@@ -21,8 +23,8 @@ export default class Gateway2Service implements GatewayInterface {
         },
         {
           headers: {
-            'Gateway-Auth-Token': 'tk_f2198cc671b5289fa856',
-            'Gateway-Auth-Secret': '3d15e8ed6131446ea7e3456728b1211f',
+            'Gateway-Auth-Token': this.token,
+            'Gateway-Auth-Secret': this.secret,
           },
         }
       )
@@ -48,8 +50,8 @@ export default class Gateway2Service implements GatewayInterface {
         },
         {
           headers: {
-            'Gateway-Auth-Token': 'tk_f2198cc671b5289fa856',
-            'Gateway-Auth-Secret': '3d15e8ed6131446ea7e3456728b1211f',
+            'Gateway-Auth-Token': this.token,
+            'Gateway-Auth-Secret': this.secret,
           },
         }
       )

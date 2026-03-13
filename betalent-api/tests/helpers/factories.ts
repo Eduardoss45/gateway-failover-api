@@ -37,7 +37,7 @@ export async function createTransaction(params: {
   const transaction = await Transaction.create({
     clientId: params.clientId,
     gatewayId: params.gatewayId,
-    externalId: params.externalId ?? 'ext_1',
+    externalId: params.externalId === undefined ? 'ext_1' : params.externalId,
     status: params.status ?? 'paid',
     amount: params.amount ?? 1000,
     cardLastNumbers: params.cardLastNumbers ?? '1234',

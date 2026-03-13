@@ -4,6 +4,7 @@ import Transaction from '#models/transaction'
 import PaymentService from './payment_service.ts'
 import db from '@adonisjs/lucid/services/db'
 import { Exception } from '@adonisjs/core/exceptions'
+import GatewayException from '#exceptions/gateway_exception'
 
 export default class PurchaseService {
   async execute(payload: any) {
@@ -63,34 +64,14 @@ export default class PurchaseService {
         cvv,
       })
     } catch (error) {
+      if (error instanceof GatewayException) {
+        throw error
+      }
       throw new Exception('Payment gateway unavailable', {
         status: 503,
         code: 'E_PAYMENT_GATEWAY_ERROR',
       })
     }
-
-    try {
-      return db.transaction(async (trx) => {
-        const client = await Client.firstOrCreate({ email }, { name }, { client: trx })
-        const transaction = await Transaction.create(
-          {
-            clientId: client.id,
-            gatewayId: payment.gatewayId!,
-            externalId: payment.externalId,
-            status: payment.success ? 'paid' : 'failed',
-            amount: total,
-            cardLastNumbers: cardNumber.slice(-4),
-          },
-          { client: trx }
-        )
-
-        const pivotData: Record<number, { quantity: number }> = {}
-
-        for (const item of products) {
-          pivotData[item.product_id] = {
-            quantity: item.quantity,
-          }
-        }
 
         transaction.useTransaction(trx)
 

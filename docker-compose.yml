@@ -35,6 +35,8 @@ services:
       DB_HOST: mysql
       GW1_BASE_URL: http://gateway1:3001
       GW2_BASE_URL: http://gateway2:3002
+      GW2_TOKEN: tk_f2198cc671b5289fa856
+      GW2_SECRET: 3d15e8ed6131446ea7e3456728b1211f
       APP_URL: http://localhost:3333
     depends_on:
       mysql:

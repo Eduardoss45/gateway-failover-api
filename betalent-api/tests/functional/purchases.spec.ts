@@ -81,7 +81,7 @@ test.group('Purchases', (group) => {
       products: [{ product_id: 999, quantity: 1 }],
     })
 
-    response.assertStatus(500)
+    response.assertStatus(404)
   })
 
   test('payload invalido retorna 422', async ({ client }) => {

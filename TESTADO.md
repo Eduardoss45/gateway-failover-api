@@ -16,28 +16,28 @@
 
 - [x] POST /users (ADMIN | MANAGER)
 - [x] GET /users (ADMIN | MANAGER)
-- [ ] GET /users/:id
-- [ ] PUT /users/:id
-- [ ] DELETE /users/:id
+- [x] GET /users/:id
+- [x] PUT /users/:id
+- [x] DELETE /users/:id
 
 # Products
 
-- [ ] POST /products
-- [ ] GET /products
-- [ ] GET /products/:id
-- [ ] PUT /products/:id
-- [ ] DELETE /products/:id
+- [x] POST /products
+- [x] GET /products
+- [x] GET /products/:id
+- [x] PUT /products/:id
+- [x] DELETE /products/:id
 
 # Clients
 
-- [ ] GET /clients
-- [ ] GET /clients/:id
+- [x] GET /clients
+- [x] GET /clients/:id
 
 # Transactions
 
-- [ ] GET /transactions
-- [ ] GET /transactions/:id
-- [ ] POST /transactions/:id/refund
+- [x] GET /transactions
+- [x] GET /transactions/:id
+- [x] POST /transactions/:id/refund
 
 # Health Check
 
@@ -53,12 +53,12 @@
 
 # Roles e Permissões (comportamento esperado)
 
-- [ ] ADMIN pode acessar todas as rotas privadas
-- [ ] MANAGER gerencia usuários e produtos (CRUD completo)
-- [ ] FINANCE gerencia produtos (CRUD completo) e pode reembolsar
-- [ ] USER não pode acessar rotas de admin/manager/finance
+- [x] ADMIN pode acessar todas as rotas privadas
+- [x] MANAGER gerencia usuários e produtos (CRUD completo)
+- [x] FINANCE gerencia produtos (CRUD completo) e pode reembolsar
+- [x] USER não pode acessar rotas de admin/manager/finance
 
 # Autenticação dos Gateways (comportamento esperado)
 
-- [ ] GW1 exige login e usa Bearer token nas transações
-- [ ] GW2 exige headers Gateway-Auth-Token e Gateway-Auth-Secret
+- [x] GW1 exige login e usa Bearer token nas transações
+- [x] GW2 exige headers Gateway-Auth-Token e Gateway-Auth-Secret
