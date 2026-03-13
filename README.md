@@ -26,18 +26,26 @@ Ele simula um sistema de compras que integra **múltiplos gateways de pagamento*
 
 O projeto depende das seguintes variáveis:
 
-| Variável       | Descrição                                  | Exemplo                            |
-| -------------- | ------------------------------------------ | ---------------------------------- |
-| `DB_HOST`      | Host do MySQL                              | `localhost`                        |
-| `DB_PORT`      | Porta do MySQL                             | `3306`                             |
-| `DB_USER`      | Usuário do banco                           | `betalent`                         |
-| `DB_PASSWORD`  | Senha do banco                             | `betalent`                         |
-| `DB_DATABASE`  | Banco de dados principal                   | `betalent`                         |
-| `APP_KEY`      | Chave para criptografia do AdonisJS        | gerada via `node ace key:generate` |
-| `GW1_BASE_URL` | URL base do Gateway 1                      | `http://localhost:3001`            |
-| `GW1_EMAIL`    | Email usado para autenticação no Gateway 1 | `dev@betalent.tech`                |
-| `GW1_TOKEN`    | Token retornado pelo login do Gateway 1    | `FEC9BB078BF338F464F96B48089EB498` |
-| `GW2_BASE_URL` | URL base do Gateway 2                      | `http://localhost:3002`            |
+| Variável       | Descrição                                           | Exemplo                            |
+| -------------- | --------------------------------------------------- | ---------------------------------- |
+| `DB_HOST`      | Host do MySQL                                       | `localhost`                        |
+| `DB_PORT`      | Porta do MySQL                                      | `3306`                             |
+| `DB_USER`      | Usuário do banco                                    | `betalent`                         |
+| `DB_PASSWORD`  | Senha do banco                                      | `betalent`                         |
+| `DB_DATABASE`  | Banco de dados principal                            | `betalent`                         |
+| `APP_KEY`      | Chave para criptografia do AdonisJS                 | gerada via `node ace key:generate` |
+| `GW1_BASE_URL` | URL base do Gateway 1                               | `http://localhost:3001`            |
+| `GW1_EMAIL`    | Email usado para autenticação no Gateway 1          | `dev@betalent.tech`                |
+| `GW1_TOKEN`    | Token retornado pelo login do Gateway 1             | `FEC9BB078BF338F464F96B48089EB498` |
+| `GW2_BASE_URL` | URL base do Gateway 2                               | `http://localhost:3002`            |
+| `GW2_TOKEN`    | Token de autenticação usado no Gateway 2            | `tk_f2198cc671b5289fa856`          |
+| `GW2_SECRET`   | Secret usado no header de autenticação do Gateway 2 | `3d15e8ed6131446ea7e3456728b1211f` |
+
+### Variável usada apenas pelo Docker Compose
+
+| Variável  | Descrição                                                       | Valores          |
+| --------- | --------------------------------------------------------------- | ---------------- |
+| `SEED_DB` | Define se os seeds devem ser executados no startup do container | `true` / `false` |
 
 > O banco de teste está configurado em `.env.test` como `DB_DATABASE=app_test`. Não há variável `DB_TEST_DATABASE`.
 
@@ -67,30 +75,59 @@ betalent-api/
 
 ## 🔌 Mocks dos Gateways
 
-**Gateway 1:** `http://localhost:3001`
+### Gateway 1
+
+`http://localhost:3001`
 
 - Autenticação: Bearer token retornado no login (`POST /login`)
-- Endpoints: `/transactions`, `/transactions/:id/charge_back`
+- Endpoints:
 
-**Gateway 2:** `http://localhost:3002`
-
-- Headers obrigatórios:
-
-```bash
-Gateway-Auth-Token=tk_f2198cc671b5289fa856
-Gateway-Auth-Secret=3d15e8ed6131446ea7e3456728b1211f
+```
+POST /transactions
+POST /transactions/:id/charge_back
 ```
 
-- Endpoints: `/transacoes`, `/transacoes/reembolso`
+---
 
-**Rodando mocks sem Docker Compose:**
+### Gateway 2
+
+`http://localhost:3002`
+
+Headers obrigatórios:
+
+```
+Gateway-Auth-Token: tk_f2198cc671b5289fa856
+Gateway-Auth-Secret: 3d15e8ed6131446ea7e3456728b1211f
+```
+
+Endpoints:
+
+```
+POST /transacoes
+POST /transacoes/reembolso
+```
+
+---
+
+### Rodando mocks sem Docker Compose
 
 ```bash
 docker run -p 3001:3001 -p 3002:3002 matheusprotzen/gateways-mock
+```
+
+ou sem autenticação:
+
+```bash
 docker run -p 3001:3001 -p 3002:3002 -e REMOVE_AUTH='true' matheusprotzen/gateways-mock
 ```
 
-**API local (padrão):** `http://localhost:3333`
+---
+
+**API local (padrão)**
+
+```
+http://localhost:3333
+```
 
 ---
 
@@ -101,9 +138,22 @@ docker run -p 3001:3001 -p 3002:3002 -e REMOVE_AUTH='true' matheusprotzen/gatewa
 3. Tenta processar no **Gateway 1**.
 4. Em caso de falha, faz fallback para o **Gateway 2**.
 5. Compra aprovada se qualquer gateway retornar sucesso.
-6. Persistência no banco:
-   - **transactions** → cliente, gateway, status, amount, últimos 4 dígitos do cartão
-   - **transaction_products** → produtos e quantidade comprada
+
+Persistência no banco:
+
+**transactions**
+
+- cliente
+- gateway utilizado
+- status
+- amount
+- últimos 4 dígitos do cartão
+- external_id do gateway
+
+**transaction_products**
+
+- relação entre transação e produtos
+- quantidade comprada
 
 ---
 
@@ -115,6 +165,8 @@ docker run -p 3001:3001 -p 3002:3002 -e REMOVE_AUTH='true' matheusprotzen/gatewa
 | ----------- | ------ | ----------------------- |
 | `/login`    | POST   | Autenticação de usuário |
 | `/purchase` | POST   | Compra de produtos      |
+
+---
 
 ### Privadas (roles)
 
@@ -132,9 +184,25 @@ docker run -p 3001:3001 -p 3002:3002 -e REMOVE_AUTH='true' matheusprotzen/gatewa
 
 ---
 
+## 📚 Documentação da API
+
+A API possui documentação interativa via **Swagger**.
+
+Endpoints disponíveis:
+
+```
+/swagger
+/docs
+```
+
+Essas rotas permitem explorar todos os endpoints da API diretamente no navegador.
+
+---
+
 ## 🧪 Testes Automatizados
 
 Os testes usam um banco isolado (`app_test`) definido em `.env.test`.
+
 A inicialização dos testes é gerenciada por `tests/bootstrap.ts`, que:
 
 - cria o banco de testes caso não exista
@@ -146,24 +214,50 @@ Para rodar os testes:
 node ace test
 ```
 
-Cobertura atual inclui: autenticação, controle de roles, CRUD de usuários / produtos, fluxo de compras, gateways de fallback e reembolsos
+Cobertura atual inclui:
+
+- autenticação
+- controle de roles
+- CRUD de usuários
+- CRUD de produtos
+- fluxo de compras
+- fallback entre gateways
+- reembolsos
 
 ---
 
 ## 🌱 Seeds Criadas
 
-- Usuário admin: `admin@admin.com` / `123456`
-- Gateways: Gateway 1 e Gateway 2 com prioridades 1 e 2
+- Usuário admin
+  `admin@admin.com` / `123456`
+
+- Gateways cadastrados
+  - Gateway 1 (prioridade 1)
+  - Gateway 2 (prioridade 2)
+
 - Produtos de teste
+
 - Clientes de teste
+
 - Transação demo
 
 ---
 
 ## 🚀 Docker Compose
 
-- Serviços: MySQL + aplicação + mocks
-- Healthcheck: `GET /health` → 200 OK
+Serviços incluídos:
+
+- MySQL
+- aplicação AdonisJS
+- mocks de gateways
+
+Healthcheck:
+
+```
+GET /health → 200 OK
+```
+
+Subir ambiente completo:
 
 ```bash
 docker compose up --build
@@ -177,5 +271,16 @@ docker compose up --build
 - Validação de payloads com VineJS
 - Persistência de transações e produtos relacionada
 - Fallback automático entre gateways configurável via prioridade
-- Estrutura modular: controllers → services → models → validators → middleware
-- Roles implementadas: ADMIN, MANAGER, FINANCE, USER
+
+Estrutura modular:
+
+```
+controllers → services → models → validators → middleware
+```
+
+Roles implementadas:
+
+- **ADMIN**
+- **MANAGER**
+- **FINANCE**
+- **USER**
