@@ -1,4 +1,4 @@
-# 🏦 Sistema de Pagamentos Multi-Gateway – Projeto BeTalent Nível 3
+# gateway-failover-api — Sistema de Pagamentos Multi-Gateway (BeTalent Nível 3)
 
 > Repositório publicado a partir de uma conta secundária do GitHub devido à perda temporária de acesso à conta principal (falha no dispositivo de autenticação de dois fatores).
 
@@ -30,12 +30,12 @@ O projeto depende das seguintes variáveis:
 | -------------- | --------------------------------------------------- | ---------------------------------- |
 | `DB_HOST`      | Host do MySQL                                       | `localhost`                        |
 | `DB_PORT`      | Porta do MySQL                                      | `3306`                             |
-| `DB_USER`      | Usuário do banco                                    | `betalent`                         |
-| `DB_PASSWORD`  | Senha do banco                                      | `betalent`                         |
-| `DB_DATABASE`  | Banco de dados principal                            | `betalent`                         |
+| `DB_USER`      | Usuário do banco                                    | `gateway_failover`                 |
+| `DB_PASSWORD`  | Senha do banco                                      | `gateway_failover`                 |
+| `DB_DATABASE`  | Banco de dados principal                            | `gateway_failover`                 |
 | `APP_KEY`      | Chave para criptografia do AdonisJS                 | gerada via `node ace key:generate` |
 | `GW1_BASE_URL` | URL base do Gateway 1                               | `http://localhost:3001`            |
-| `GW1_EMAIL`    | Email usado para autenticação no Gateway 1          | `dev@betalent.tech`                |
+| `GW1_EMAIL`    | Email usado para autenticação no Gateway 1          | `dev@gateway-failover.local`       |
 | `GW1_TOKEN`    | Token retornado pelo login do Gateway 1             | `FEC9BB078BF338F464F96B48089EB498` |
 | `GW2_BASE_URL` | URL base do Gateway 2                               | `http://localhost:3002`            |
 | `GW2_TOKEN`    | Token de autenticação usado no Gateway 2            | `tk_f2198cc671b5289fa856`          |
@@ -54,7 +54,7 @@ O projeto depende das seguintes variáveis:
 ## 🗂 Estrutura do Projeto
 
 ```bash
-betalent-api/
+gateway-failover-api/
 ├── app/
 │   ├── controllers/      # Endpoints da API
 │   ├── services/         # Lógica de negócio e integração com gateways

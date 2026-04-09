@@ -1,9 +1,13 @@
 {
-    "name": "betalent-api",
+    "name": "gateway-failover-api",
     "version": "0.0.0",
     "private": true,
     "type": "module",
     "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Eduardoss45/gateway-failover-api.git"
+    },
     "exports": {
         "./data": "./.adonisjs/client/data.d.ts",
         "./registry": "./.adonisjs/client/registry/index.ts"

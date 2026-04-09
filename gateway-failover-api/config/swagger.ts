@@ -1,7 +1,7 @@
 export default {
   path: process.cwd() + '/',
   info: {
-    title: 'BeTalent API',
+    title: 'Gateway Failover API',
     version: '1.0.0',
     description: 'API REST para pagamentos multi-gateway',
   },
