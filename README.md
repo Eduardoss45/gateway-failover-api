@@ -1,9 +1,5 @@
 # gateway-failover-api — Sistema de Pagamentos Multi-Gateway (BeTalent Nível 3)
 
-> Repositório publicado a partir de uma conta secundária do GitHub devido à perda temporária de acesso à conta principal (falha no dispositivo de autenticação de dois fatores).
-
-- [Eduardoss45](https://github.com/Eduardoss45)
-
 Este projeto é a implementação do **desafio técnico BeTalent**, desenvolvido com **AdonisJS 7** e **MySQL**, com suporte a múltiplos usuários e roles, fallback automático entre gateways e testes automatizados.
 
 Ele simula um sistema de compras que integra **múltiplos gateways de pagamento**, seguindo uma ordem de prioridade definida e garantindo persistência de transações e produtos comprados.
